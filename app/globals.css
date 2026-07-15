@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ── Base Reset & Mobile Foundation ── */
+:root {
+  --bg-deep: #040a18;
+  --bg-panel: #061224;
+  --neon-cyan: #00f3ff;
+  --neon-blue: #0066ff;
+  --border-glow: #1a4a82;
+  --text-muted: #8899b4;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--bg-deep);
+  color: #e2e8f0;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Ambient Background ── */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 30%, rgba(0, 102, 255, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 80% 70%, rgba(0, 243, 255, 0.08) 0%, transparent 70%);
+}
+
+/* ── Circuit Grid Overlay ── */
+.circuit-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.06;
+  background-image:
+    linear-gradient(rgba(0, 243, 255, 0.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 243, 255, 0.4) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ── Metallic Text ── */
+.metallic-text {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #c8d6e5 25%,
+    #8395a7 50%,
+    #c8d6e5 75%,
+    #ffffff 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8))
+    drop-shadow(0 0 12px rgba(0, 243, 255, 0.3));
+}
+
+/* ── Neon Glow Text ── */
+.neon-text {
+  text-shadow:
+    0 0 6px var(--neon-cyan),
+    0 0 12px var(--neon-cyan),
+    0 0 24px var(--neon-blue);
+}
+
+/* ── Glass Card ── */
+.glass-card {
+  background: rgba(6, 18, 36, 0.7);
+  border: 1px solid rgba(0, 243, 255, 0.15);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ── Glowing Divider ── */
+.glow-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--neon-cyan) 50%,
+    transparent 100%
+  );
+  opacity: 0.4;
+}
+
+/* ── Light Bulbs ── */
+.bulb {
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.bulb-on {
+  background: var(--neon-cyan);
+  box-shadow:
+    0 0 6px var(--neon-cyan),
+    0 0 14px var(--neon-blue);
+}
+
+.bulb-off {
+  background: #e0e6ed;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
+  opacity: 0.85;
+}
+
+/* ── Pulse Ring Animation ── */
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+.pulse-ring::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--neon-cyan);
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+/* ── Scroll Indicator Bounce ── */
+@keyframes float-down {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+.float-down {
+  animation: float-down 2s ease-in-out infinite;
+}
+
+/* ── Section Fade-in (CSS fallback for no-JS) ── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Stat Card Hover Glow ── */
+.stat-card {
+  background: rgba(5, 15, 36, 0.8);
+  border: 1px solid rgba(26, 74, 130, 0.4);
+  border-radius: 14px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:active {
+  border-color: rgba(0, 243, 255, 0.5);
+  box-shadow: 0 0 16px rgba(0, 102, 255, 0.3);
+}
+
+/* ── Decoder Popup ── */
+.decoder-popup {
+  background: rgba(4, 10, 24, 0.96);
+  border: 1px solid var(--neon-cyan);
+  border-radius: 14px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 0 24px rgba(0, 243, 255, 0.4),
+    0 0 60px rgba(0, 102, 255, 0.2);
+  animation: pop-in 0.25s ease-out;
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ── Interactive Row ── */
+.binary-row-interactive {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(26, 74, 130, 0.3);
+  background: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.binary-row-interactive:active {
+  background: rgba(0, 102, 255, 0.15);
+  border-color: var(--neon-cyan);
+}
+
+/* ── Section Spacing (mobile-first) ── */
+.section-mobile {
+  padding: 3.5rem 1.25rem;
+}
+
+/* ── Scrollbar Hide (for cleaner mobile feel) ── */
+::-webkit-scrollbar {
+  display: none;
+}
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
